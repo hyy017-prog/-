@@ -1,0 +1,21 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function isOwner(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
+
+    // 所有上傳檔案（作品照片、STL 縮圖等）皆存放於 users/{uid}/... 底下
+    match /users/{uid}/{allPaths=**} {
+      allow read, write: if isOwner(uid);
+      // 限制單檔大小 10MB，避免異常上傳
+      allow write: if isOwner(uid) && request.resource.size < 10 * 1024 * 1024;
+    }
+
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

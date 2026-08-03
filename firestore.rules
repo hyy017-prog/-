@@ -1,0 +1,37 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+
+    // 使用者個人資料文件
+    match /users/{uid} {
+      allow read, update: if isOwner(uid);
+      allow create: if isOwner(uid);
+      allow delete: if false;
+
+      // Phase 1：列印工作，巢狀於使用者底下，天生資料隔離
+      match /printJobs/{jobId} {
+        allow read, write: if isOwner(uid);
+      }
+
+      // 以下集合預留給後續 Phase（耗材、客戶、訂單、設備、失敗案例等）
+      // 皆採相同的巢狀隔離模式：users/{uid}/{collection}/{docId}
+      match /{document=**} {
+        allow read, write: if isOwner(uid);
+      }
+    }
+
+    // 其餘所有路徑預設拒絕
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply antialiased;
+  }
+  body {
+    @apply bg-surface-light text-ink-900 font-body transition-colors duration-200;
+  }
+  html.dark body {
+    @apply bg-surface-dark text-ink-100;
+  }
+  h1, h2, h3, h4 {
+    @apply font-display;
+  }
+  /* 可視鍵盤焦點，符合無障礙需求 */
+  :focus-visible {
+    outline: 2px solid theme("colors.brand.500");
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-surface-card dark:bg-surface-dark-card rounded-2xl shadow-card dark:shadow-card-dark border border-black/5 dark:border-white/5;
+  }
+}
+
+/* 列印文件（報價單／出貨單／發票）：列印時只顯示 #print-area 內容 */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #print-area,
+  #print-area * {
+    visibility: visible;
+  }
+  #print-area {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+}
