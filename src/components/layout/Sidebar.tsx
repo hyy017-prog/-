@@ -17,17 +17,17 @@ import { cn } from "@/utils/cn";
 
 const NAV_ITEMS = [
   { to: "/", label: "首頁 Dashboard", icon: HomeIcon, end: true },
-  { to: "/jobs", label: "列印作品管理", icon: CubeIcon },
-  { to: "/filaments", label: "耗材管理", icon: ArchiveBoxIcon },
-  { to: "/cost", label: "成本計算", icon: CalculatorIcon },
-  { to: "/customers", label: "客戶管理", icon: UsersIcon },
-  { to: "/orders", label: "訂單管理", icon: ClipboardDocumentListIcon },
-  { to: "/showcase", label: "作品展示", icon: PhotoIcon },
-  { to: "/failures", label: "列印失敗資料庫", icon: ExclamationTriangleIcon },
-  { to: "/assistant", label: "AI 助手", icon: SparklesIcon },
-  { to: "/analytics", label: "數據分析", icon: ChartBarIcon },
-  { to: "/notifications", label: "通知", icon: BellIcon },
-  { to: "/equipment", label: "設備管理", icon: WrenchScrewdriverIcon },
+  { to: "/jobs", label: "列印作品管理", icon: CubeIcon, end: false },
+  { to: "/filaments", label: "耗材管理", icon: ArchiveBoxIcon, end: false },
+  { to: "/cost", label: "成本計算", icon: CalculatorIcon, end: false },
+  { to: "/customers", label: "客戶管理", icon: UsersIcon, end: false },
+  { to: "/orders", label: "訂單管理", icon: ClipboardDocumentListIcon, end: false },
+  { to: "/showcase", label: "作品展示", icon: PhotoIcon, end: false },
+  { to: "/failures", label: "列印失敗資料庫", icon: ExclamationTriangleIcon, end: false },
+  { to: "/assistant", label: "AI 助手", icon: SparklesIcon, end: false },
+  { to: "/analytics", label: "數據分析", icon: ChartBarIcon, end: false },
+  { to: "/notifications", label: "通知", icon: BellIcon, end: false },
+  { to: "/equipment", label: "設備管理", icon: WrenchScrewdriverIcon, end: false },
 ] as const;
 
 export function Sidebar({ variant = "desktop" }: { variant?: "desktop" | "mobile" }) {

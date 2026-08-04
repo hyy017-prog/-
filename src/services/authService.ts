@@ -9,6 +9,7 @@ import {
 import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
 import { auth, db, googleProvider } from "@/firebase/config";
 import type { UserProfile } from "@/types";
+import { DEFAULT_COST_SETTINGS } from "@/types";
 
 /** 若 Firestore 尚無此使用者的個人資料文件，建立一份預設值 */
 async function ensureUserProfile(user: User): Promise<void> {
@@ -21,11 +22,7 @@ async function ensureUserProfile(user: User): Promise<void> {
       displayName: user.displayName,
       photoURL: user.photoURL,
       createdAt: serverTimestamp(),
-      settings: {
-        electricityRatePerKwh: 4.5,
-        laborRatePerHour: 200,
-        defaultMarkup: 2,
-      },
+      settings: DEFAULT_COST_SETTINGS,
     };
     await setDoc(ref, profile);
   }
